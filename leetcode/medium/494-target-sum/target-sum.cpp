@@ -1,7 +1,6 @@
 class Solution {
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
-        
         int n=nums.size();
         int total=0;
         for(int x:nums){
@@ -23,9 +22,6 @@ public:
             }
         }
         return dp[n][target+offset];
-
-        
-
         
     }
 };
