@@ -1,56 +1,31 @@
 class Solution {
 public:
     const int MOD = 1000000007;
-    vector<vector<vector<vector<int>>>> dp;
-
-    int rec(int zero, int one, int limit, int last, int cnt){
-
-        if(zero == 0 && one == 0) return 1;
-
-        if(dp[zero][one][last][cnt] != -1)
-            return dp[zero][one][last][cnt];
-
-        long long ans = 0;
-
-        if(last == 0){
-            if(zero > 0 && cnt < limit)
-                ans = (ans + rec(zero-1, one, limit, 0, cnt+1)) % MOD;
-
-            if(one > 0)
-                ans = (ans + rec(zero, one-1, limit, 1, 1)) % MOD;
-        }
-        else{
-            if(one > 0 && cnt < limit)
-                ans = (ans + rec(zero, one-1, limit, 1, cnt+1)) % MOD;
-
-            if(zero > 0)
-                ans = (ans + rec(zero-1, one, limit, 0, 1)) % MOD;
-        }
-
-        return dp[zero][one][last][cnt] = ans;
-    }
 
     int numberOfStableArrays(int zero, int one, int limit) {
 
-        dp = vector<vector<vector<vector<int>>>>(
-                zero+1,
-                vector<vector<vector<int>>>(
-                    one+1,
-                    vector<vector<int>>(
-                        2,
-                        vector<int>(limit+1, -1)
-                    )
-                )
-             );
+        vector<vector<long long>> dp0(zero+1, vector<long long>(one+1, 0));
+        vector<vector<long long>> dp1(zero+1, vector<long long>(one+1, 0));
 
-        long long ans = 0;
+        for(int z = 1; z <= min(zero, limit); z++)
+            dp0[z][0] = 1;
 
-        if(zero > 0)
-            ans = (ans + rec(zero-1, one, limit, 0, 1)) % MOD;
+        for(int o = 1; o <= min(one, limit); o++)
+            dp1[0][o] = 1;
 
-        if(one > 0)
-            ans = (ans + rec(zero, one-1, limit, 1, 1)) % MOD;
+        for(int z = 0; z <= zero; z++){
+            for(int o = 0; o <= one; o++){
 
-        return ans;
+                for(int k = 1; k <= limit && k <= z; k++){
+                    dp0[z][o] = (dp0[z][o] + dp1[z-k][o]) % MOD;
+                }
+
+                for(int k = 1; k <= limit && k <= o; k++){
+                    dp1[z][o] = (dp1[z][o] + dp0[z][o-k]) % MOD;
+                }
+            }
+        }
+
+        return (dp0[zero][one] + dp1[zero][one]) % MOD;
     }
 };
