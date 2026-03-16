@@ -43,7 +43,7 @@ jobs:
           exit_code=$?
           
           # Check if any README files were modified
-          if [ -n "$(git status --porcelain README.md leetcode/README.md codeforces/README.md geeksforgeeks/README.md 2>/dev/null)" ]; then
+          if [ -n "$(git status --porcelain README.md leetcode/README.md codeforces/README.md 2>/dev/null)" ]; then
             echo "changes_made=true" >> $GITHUB_OUTPUT
             echo "📝 Changes detected in README files"
           else
@@ -80,7 +80,7 @@ jobs:
       - name: Commit changes
         if: steps.update.outputs.changes_made == 'true'
         run: |
-          git add README.md leetcode/README.md codeforces/README.md geeksforgeeks/README.md
+          git add README.md leetcode/README.md codeforces/README.md
           
           TRIGGER="${{ steps.commit.outputs.trigger }}"
           TIMESTAMP="${{ steps.commit.outputs.timestamp }}"
@@ -90,7 +90,6 @@ jobs:
           - Updated main README.md with total counts
           - Updated leetcode/README.md with difficulty breakdown
           - Updated codeforces/README.md with total count
-          - Updated geeksforgeeks/README.md with total count
           
           Triggered by: ${TRIGGER}
           Date: ${TIMESTAMP}"
@@ -113,8 +112,8 @@ jobs:
           }
           
           # Re-stage any changes after rebase/merge
-          if [ -n "$(git status --porcelain README.md leetcode/README.md codeforces/README.md geeksforgeeks/README.md 2>/dev/null)" ]; then
-            git add README.md leetcode/README.md codeforces/README.md geeksforgeeks/README.md
+          if [ -n "$(git status --porcelain README.md leetcode/README.md codeforces/README.md 2>/dev/null)" ]; then
+            git add README.md leetcode/README.md codeforces/README.md
           fi
     
       - name: Push changes
