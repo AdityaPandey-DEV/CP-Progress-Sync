@@ -38,18 +38,20 @@ def fetch_difficulty_from_api(title_slug):
       }
     }
     """
-    
+
     req = urllib.request.Request(
-        url, 
-        data=json.dumps({"query": query, "variables": {"titleSlug": title_slug}}).encode("utf-8"),
-        headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+        url,
+        data=json.dumps(
+            {"query": query, "variables": {"titleSlug": title_slug}}
+        ).encode("utf-8"),
+        headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"},
     )
-    
+
     # Ignore SSL just in case
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    
+
     try:
         with urllib.request.urlopen(req, context=ctx, timeout=10) as response:
             data = json.loads(response.read().decode())
@@ -172,11 +174,11 @@ def organize_problems():
             continue
 
         difficulty = None
-        
+
         # Check if README.md exists and extract from it
         if readme_path.exists():
             difficulty = extract_difficulty_from_readme(readme_path)
-            
+
         # Fallback to API if not in README or README doesn't exist
         if not difficulty:
             # Extract title_slug: folder name format is like "191-number-of-1-bits"
@@ -186,7 +188,7 @@ def organize_problems():
                 title_slug = match.group(1)
             else:
                 title_slug = folder_name
-                
+
             print(f"📡 Requesting difficulty from API for {title_slug}...")
             api_difficulty = fetch_difficulty_from_api(title_slug)
             if api_difficulty:
