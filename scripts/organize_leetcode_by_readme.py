@@ -7,11 +7,14 @@ extracts difficulty information from README.md files (HTML format),
 and moves folders to appropriate difficulty directories (easy/, medium/, hard/).
 """
 
+import json
 import os
 import re
 import shutil
+import ssl
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
 
 BASE_DIR = Path("leetcode")
@@ -21,6 +24,39 @@ HARD_DIR = BASE_DIR / "hard"
 
 # Folders to exclude from processing
 EXCLUDED_FOLDERS = {"easy", "medium", "hard", ".git", "__pycache__"}
+
+
+def fetch_difficulty_from_api(title_slug):
+    """
+    Fetch problem difficulty from LeetCode GraphQL API.
+    """
+    url = "https://leetcode.com/graphql"
+    query = """
+    query questionTitle($titleSlug: String!) {
+      question(titleSlug: $titleSlug) {
+        difficulty
+      }
+    }
+    """
+    
+    req = urllib.request.Request(
+        url, 
+        data=json.dumps({"query": query, "variables": {"titleSlug": title_slug}}).encode("utf-8"),
+        headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+    )
+    
+    # Ignore SSL just in case
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=10) as response:
+            data = json.loads(response.read().decode())
+            return data.get("data", {}).get("question", {}).get("difficulty", None)
+    except Exception as e:
+        print(f"⚠️  Error fetching from API for {title_slug}: {e}", file=sys.stderr)
+        return None
 
 
 def extract_difficulty_from_readme(readme_path):
@@ -135,14 +171,26 @@ def organize_problems():
             stats["skipped"] += 1
             continue
 
-        # Check if README.md exists
-        if not readme_path.exists():
-            print(f"⚠️  Skipping {folder_name} (no README.md found)")
-            stats["skipped"] += 1
-            continue
-
-        # Extract difficulty from README
-        difficulty = extract_difficulty_from_readme(readme_path)
+        difficulty = None
+        
+        # Check if README.md exists and extract from it
+        if readme_path.exists():
+            difficulty = extract_difficulty_from_readme(readme_path)
+            
+        # Fallback to API if not in README or README doesn't exist
+        if not difficulty:
+            # Extract title_slug: folder name format is like "191-number-of-1-bits"
+            # We need to strip the prefix number and hyphen
+            match = re.match(r"^\d+-(.+)$", folder_name)
+            if match:
+                title_slug = match.group(1)
+            else:
+                title_slug = folder_name
+                
+            print(f"📡 Requesting difficulty from API for {title_slug}...")
+            api_difficulty = fetch_difficulty_from_api(title_slug)
+            if api_difficulty:
+                difficulty = api_difficulty.lower()
 
         if not difficulty:
             print(f"⚠️  Skipping {folder_name} (could not extract difficulty)")
