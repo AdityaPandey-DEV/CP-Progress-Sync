@@ -163,6 +163,25 @@ def organize_problems():
         f"📁 Found {len(problem_folders)} problem folders and {len(problem_files)} problem files to process\n"
     )
 
+    # Convert bare files into folders first
+    for file_path in problem_files:
+        # e.g., "35-search-insert-position.cpp" -> "35-search-insert-position"
+        folder_name = file_path.stem
+        new_folder = BASE_DIR / folder_name
+        new_folder.mkdir(exist_ok=True)
+        # Move file into the new folder
+        new_file_path = new_folder / file_path.name
+        print(f"📦 Moving bare file {file_path.name} into folder {folder_name}/")
+        try:
+            # try git mv, fallback to shutil
+            subprocess.run(["git", "mv", str(file_path), str(new_file_path)], check=True, capture_output=True)
+        except:
+            shutil.move(str(file_path), str(new_file_path))
+        
+        # Add the new folder to problem_folders so it gets processed
+        problem_folders.append(new_folder)
+
+
     for folder in sorted(problem_folders):
         folder_name = folder.name
         readme_path = folder / "README.md"
