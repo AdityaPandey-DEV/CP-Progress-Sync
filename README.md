@@ -27,6 +27,7 @@ Watch my progress in real-time through these auto-updating statistic cards.
 
 ## ✨ Supercharged Features
 
+- ✅ **210+ CP & DSA Problems Solved**: Daily tracked progress across top platforms.
 - 🤖 **Auto Commits**: Solutions are fetched and committed to this repository entirely hands-free using GitHub Actions.
 - 📈 **Dynamic Dashboards**: A monthly progress dashboard tracking problems solved over time. _([View Dashboard](dashboard.md))_
 - 🏆 **Multi-Platform Support**: Seamlessly syncs from **LeetCode**, **Codeforces**, and **GeeksforGeeks**.
@@ -47,45 +48,6 @@ Watch my progress in real-time through these auto-updating statistic cards.
 ```
 
 ---
-
-## 🚀 Quick Setup & Usage
-
-To explore the solutions or run the sync scripts locally:
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/AdityaPandey-DEV/cp-progress-sync.git
-   ```
-2. **Navigate to the directory**:
-   ```bash
-   cd cp-progress-sync
-   ```
-3. **Explore specific categories**:
-   ```bash
-   cd leetcode/medium
-   ```
-
----
-
-## 🤖 How the Automation Works
-
-This repo leverages **GitHub Actions** (`.github/workflows/`) to run scheduled cron jobs. 
-- `dashboard.yml`: Scans the repository for new files and automatically updates `dashboard.md` with beautiful markdown tables and lists.
-- `leetcode-sync.yml`: Automates reaching out to APIs to pull newly accepted solutions and commit them on your behalf.
-
----
-
-## 🤝 Contributing
-
-We welcome community contributions! Whether it's adding better solutions, optimizing scripts, or improving docs.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ---
 
