@@ -55,11 +55,11 @@ To explore the solutions locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/AdityaPandey-DEV/DSA-Auto-Sync.git
+   git clone https://github.com/AdityaPandey-DEV/cp-progress-sync.git
    ```
 2. **Navigate to the directory**:
    ```bash
-   cd DSA-Auto-Sync
+   cd cp-progress-sync
    ```
 3. **Explore specific categories** (e.g., LeetCode Medium):
    ```bash

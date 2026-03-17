@@ -5,7 +5,7 @@ Thank you for your interest in contributing to **DSA Auto Sync**! We welcome con
 ## 🚀 How to Contribute
 
 ### 1. Reporting Issues
-If you find a bug, incorrect solution, or have a feature request, please [open an issue](https://github.com/AdityaPandey-DEV/DSA-Auto-Sync/issues). Include:
+If you find a bug, incorrect solution, or have a feature request, please [open an issue](https://github.com/AdityaPandey-DEV/cp-progress-sync/issues). Include:
 - A clear title and description.
 - Steps to reproduce (if it's a bug).
 - Platform and Problem ID (if applicable).
@@ -14,7 +14,7 @@ If you find a bug, incorrect solution, or have a feature request, please [open a
 1. **Fork** the repository.
 2. **Clone** your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/DSA-Auto-Sync.git
+   git clone https://github.com/AdityaPandey-DEV/cp-progress-sync.git
    ```
 3. **Create a new branch** for your feature or fix:
    ```bash
