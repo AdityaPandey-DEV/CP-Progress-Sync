@@ -14,13 +14,14 @@ This repository is an automated, live portfolio of my problem-solving journey. I
 
 </div>
 
-## 📊 Live Stats & Rating Graphs
+##  Live Stats & Rating Graphs
 
 Watch my progress in real-time through these auto-updating statistic cards.
 
 <p align="center">
-  <img src="https://leetcard.jacoblin.cool/AdityaPandey-DEV?theme=dark&font=baloo&ext=activity" alt="LeetCode Stats" width="400"/>
-  <img src="https://github-readme-stats.vercel.app/api?username=AdityaPandey-DEV&show_icons=true&theme=radical" alt="GitHub Stats" width="400"/>
+  <img src="https://leetcard.jacoblin.cool/AdityaPandey-DEV?theme=dark&font=baloo&ext=activity" alt="LeetCode Stats" height="195"/>
+  <img src="https://codeforces-readme-stats.vercel.app/api/card?username=AdityaPandey-DEV&theme=dark" alt="Codeforces Stats" height="195"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=AdityaPandey-DEV&show_icons=true&theme=radical" alt="GitHub Stats" height="195"/>
 </p>
 
 ---
