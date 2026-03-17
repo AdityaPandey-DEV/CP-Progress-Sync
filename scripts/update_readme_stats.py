@@ -208,7 +208,7 @@ def update_main_readme(leetcode_count, codeforces_count):
         # Update total in Key Highlights
         total = leetcode_count + codeforces_count
         total_pattern = re.compile(
-            r"(- ✅ Solved \*\*)(\d+)(\+ CP & DSA problems)", re.IGNORECASE
+            r"(- ✅ \*\*)(\d+)(\+ CP & DSA Problems Solved\*\*:.*)", re.IGNORECASE
         )
 
         def replace_total(match):
