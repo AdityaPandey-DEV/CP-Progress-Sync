@@ -174,13 +174,16 @@ def organize_problems():
         print(f"📦 Moving bare file {file_path.name} into folder {folder_name}/")
         try:
             # try git mv, fallback to shutil
-            subprocess.run(["git", "mv", str(file_path), str(new_file_path)], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "mv", str(file_path), str(new_file_path)],
+                check=True,
+                capture_output=True,
+            )
         except:
             shutil.move(str(file_path), str(new_file_path))
-        
+
         # Add the new folder to problem_folders so it gets processed
         problem_folders.append(new_folder)
-
 
     for folder in sorted(problem_folders):
         folder_name = folder.name
