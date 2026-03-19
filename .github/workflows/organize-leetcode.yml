@@ -22,8 +22,8 @@ jobs:
   organize-leetcode:
     runs-on: ubuntu-latest
     concurrency:
-      group: push-to-main
-      cancel-in-progress: false
+      group: organize-leetcode
+      cancel-in-progress: true
     permissions:
       contents: write  # Required to commit and push changes
       actions: read    # Standard read permission

@@ -17,8 +17,8 @@ jobs:
     # Skip runs triggered by bot commits (our own formatting commits)
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     concurrency:
-      group: push-to-main
-      cancel-in-progress: false
+      group: auto-format
+      cancel-in-progress: true
     permissions:
       contents: write
       

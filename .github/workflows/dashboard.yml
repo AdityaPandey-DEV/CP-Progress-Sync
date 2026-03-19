@@ -11,8 +11,8 @@ jobs:
     permissions:
       contents: write
     concurrency:
-      group: push-to-main
-      cancel-in-progress: false
+      group: update-dashboard
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
 
