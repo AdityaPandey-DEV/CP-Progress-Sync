@@ -6,19 +6,18 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
-public:
-    bool check(TreeNode* root,long l,long r){
-        if(root == NULL) return true;
-        if(root->val<=l||root->val>=r){
-            return false;
-        }
-        return check(root->left,l,root->val)&&check(root->right,root->val,r);
+ public:
+  bool check(TreeNode* root, long l, long r) {
+    if (root == NULL) return true;
+    if (root->val <= l || root->val >= r) {
+      return false;
     }
-    bool isValidBST(TreeNode* root) {
-        return check(root,LONG_MIN,LONG_MAX);
-    }
+    return check(root->left, l, root->val) && check(root->right, root->val, r);
+  }
+  bool isValidBST(TreeNode* root) { return check(root, LONG_MIN, LONG_MAX); }
 };
