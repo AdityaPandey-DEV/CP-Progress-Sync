@@ -1,5 +1,5 @@
 class Solution:
-    def twoEditWords(self, queries, dictionary) :
+    def twoEditWords(self, queries, dictionary):
         result = []
         for q in queries:
             for d in dictionary:
