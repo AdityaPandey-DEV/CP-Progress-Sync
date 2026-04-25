@@ -1,29 +1,33 @@
 class Solution {
-  bool subsetSum(vector<int>& arr, int i, int target, vector<vector<int>>& dp) {
-    if (target == 0) {
-      return true;
-    }
-    if (i == arr.size() || target < 0) {
-      return false;
-    }
-    if (dp[i][target] != -1) {
-      return dp[i][target];
-    }
-    bool take = subsetSum(arr, i + 1, target - arr[i], dp);
-    bool notTake = subsetSum(arr, i + 1, target, dp);
-    return dp[i][target] = take || notTake;
-  }
+    bool can(vector<int>& nums,int i,int target,vector<vector<int>>&dp){
+        if(target==0){
+            return true;
+        }
+        if(target<0){
+            return false;
+        }
+        int n=nums.size();
+        if(i==n){
+            return false;
+        }
+        if(dp[i][target]!=-1){
+            return (bool)dp[i][target];
+        }
+        int take=0,notTake=0;
+        take=can(nums,i+1,target-nums[i],dp);
+        notTake=can(nums,i+1,target,dp);
+        return dp[i][target]=(int)(take||notTake);
+        
 
- public:
-  bool canPartition(vector<int>& nums) {
-    int sum = 0;
-    for (int i : nums) {
-      sum += i;
     }
-    if (sum % 2 != 0) {
-      return false;
+public:
+    bool canPartition(vector<int>& nums) {
+        int n=nums.size();
+        int sum=accumulate(nums.begin(),nums.end(),0);
+        if(sum % 2 !=0) return false;
+        int target=sum/2;
+        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        return can(nums,0,target,dp);
+        
     }
-    vector<vector<int>> dp(nums.size() + 1, vector<int>((sum / 2) + 1, -1));
-    return subsetSum(nums, 0, sum / 2, dp);
-  }
 };
