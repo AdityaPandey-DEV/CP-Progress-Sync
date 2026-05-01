@@ -1,28 +1,26 @@
 class Solution {
-  void rec(vector<int>& candidates, vector<vector<int>>& ans, int i,
-           vector<int>& a, int target) {
-    if (target == 0) {
-      ans.push_back(a);
-      return;
+    vector<vector<int>>ans;
+    void solve(int idx,int& target,vector<int>&path,vector<int>& candidates){
+        int n=candidates.size();
+        if(idx==candidates.size()||target<0){
+            return ;
+        }
+        if(target==0){
+            ans.push_back(path);
+            return ;
+        }
+        for(int i=idx;i<n;i++){
+            target-=candidates[i];
+            path.push_back(candidates[i]);
+            solve(i,target,path,candidates);
+            target+=candidates[i];
+            path.pop_back();
+        }
     }
-    if (i == candidates.size() || target < 0) {
-      return;
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int>path;
+        solve(0,target,path,candidates);
+        return ans;
     }
-
-    rec(candidates, ans, i + 1, a, target);
-    a.push_back(candidates[i]);
-
-    rec(candidates, ans, i, a, target - candidates[i]);
-    a.pop_back();
-  }
-
- public:
-  vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    vector<vector<int>> ans;
-    vector<int> a;
-    int i = candidates.size();
-    rec(candidates, ans, 0, a, target);
-
-    return ans;
-  }
 };
