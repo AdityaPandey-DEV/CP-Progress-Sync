@@ -1,6 +1,6 @@
 # ⚡ CP Progress Sync Dashboard
 
-> _Auto-updated on 01 May 2026_
+> _Auto-updated on 02 May 2026_
 
 ## 🔥 Progress Activity Overview
 <div align="center">
@@ -9,9 +9,9 @@
 xychart-beta
     title "Problems Solved per Month"
     x-axis ["2026-05"]
-    y-axis "Solved Count" 0 --> 320
-    bar [317]
-    line [317]
+    y-axis "Solved Count" 0 --> 330
+    bar [325]
+    line [325]
 ```
 
 </div>
@@ -20,14 +20,14 @@ xychart-beta
 
 | Month | Problems Solved |
 | :--- | :---: |
-| **2026-05** | 317 |
+| **2026-05** | 325 |
 
 ## 🎯 Platform Breakdown
 
 ### LeetCode
 | Month | Problems Solved |
 | :--- | :---: |
-| **2026-05** | 303 |
+| **2026-05** | 311 |
 
 ### Codeforces
 | Month | Problems Solved |
