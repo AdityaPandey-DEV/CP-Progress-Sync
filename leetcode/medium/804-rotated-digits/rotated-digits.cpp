@@ -1,26 +1,20 @@
 class Solution {
-  vector<int> gn = {2, 5, 6, 9};
-  bool check(int n) {
-    bool ans = false;
-    while (n > 0) {
-      int temp = n % 10;
-      n /= 10;
-      if (temp == 3 || temp == 4 || temp == 7) return false;
-      if (find(gn.begin(), gn.end(), temp) != gn.end()) {
-        ans = true;
-      }
-    }
-    return ans;
-  }
+public:
+    int rotatedDigits(int m) {
+        int k = 0;
+        for(int n=1;n<=m;n++){
+        int l=n;
+        bool changed = 0;
+        bool valid =1;
 
- public:
-  int rotatedDigits(int n) {
-    int ans = 0;
-    for (int i = 0; i <= n; i++) {
-      if (check(i)) {
-        ans++;
-      }
+        while(l>0){
+           int i=l%10;
+    if (i==2||i==5||i==6||i==9) changed = true;
+    if (i==3||i==4||i==7)valid=false;
+        l /=10;
+        }
+        if(changed&&valid) k++;
+        }
+        return k;
     }
-    return ans;
-  }
 };
