@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+select round(count(distinct a.player_id)/(select count(DISTINCT player_id) from Activity),2)as Fraction from Activity a join (select player_id,min(event_date) as first_date from Activity Group by player_id) t on a.player_id=t.player_id and a.event_date=Date_ADD(t.first_date,interval 1 day);
