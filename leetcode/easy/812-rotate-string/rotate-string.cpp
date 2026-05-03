@@ -1,15 +1,17 @@
 class Solution {
- public:
-  bool rotateString(string s, string goal) {
-    const int size = s.size();
-    s += s;
-    if (size != goal.size()) return false;
-    for (int i = 0; i < size; ++i) {
-      int ind = 0;
-      for (int j = i; j < i + size; ++j, ++ind)
-        if (s[j] != goal[ind]) break;
-      if (ind == size) return true;
+public:
+    bool rotateString(string s, string goal) {
+        int n=s.size()-1;
+        for(int j=0;j<=n;j++){
+        int a=s[n];
+        for(int i=n;i>0;i--){
+            int b=s[i-1];
+            s[i-1]=a;
+            a=b;
+        }
+        s[n]=a;
+        if(s==goal)return true;
+        }
+        return false;
     }
-    return false;
-  }
 };
