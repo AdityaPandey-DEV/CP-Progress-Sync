@@ -33,8 +33,10 @@ public:
                 }
                 auto vc = mp[arr[curr]];
                 for (auto v : vc) {
-                    q.push(v);
-                    vis[v] = true;
+                    if(!vis[v]){
+                        q.push(v);
+                        vis[v] = true;
+                    }  
                 }
                 mp.erase(arr[curr]);
             }
