@@ -17,7 +17,7 @@ public:
             else if(islower(w[i])&&m[toupper(w[i])]>0){
                 m[w[i]]=INT_MIN;
             }
-            else if(islower(w[i])){
+            else{
                 m[w[i]]++;
             }
         }
