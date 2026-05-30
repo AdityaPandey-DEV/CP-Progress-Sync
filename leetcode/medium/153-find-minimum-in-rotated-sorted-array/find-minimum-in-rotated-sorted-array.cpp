@@ -4,20 +4,21 @@ public:
     int n=nums.size();
     int st=0,end=n-1,mid;
     int ans=INT_MAX;
-    int id;
     while(st<=end){
-        mid=st+(end-st);
+        mid=st+(end-st)/2;
+        if(nums[st]<=nums[end]){
+            ans=min(ans,nums[st]);
+            return ans;
+        }
         if(nums[mid]<=nums[end]){
-            if(nums[mid]<ans){
-            ans=nums[mid];
-}
+            ans=min(ans,nums[mid]);
             end=mid-1;
         }else{
-            if(nums[mid]<ans){
-            ans=nums[mid];}
+            ans=min(ans,nums[mid]);
             st=mid+1;
         }
     }
-    return ans;
+            return ans;
     }
+    
 };
