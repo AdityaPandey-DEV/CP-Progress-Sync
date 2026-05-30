@@ -1,16 +1,23 @@
 class Solution {
- public:
-  int findMin(vector<int>& nums) {
-    int lo = 0, hi = nums.size() - 1, mid;
-    while (hi - lo > 1) {
-      mid = (hi + lo) / 2;
-      if (nums[mid] < nums[hi]) {
-        hi = mid;
-      } else {
-        lo = mid;
-      }
+public:
+    int findMin(vector<int>& nums) {
+    int n=nums.size();
+    int st=0,end=n-1,mid;
+    int ans=INT_MAX;
+    int id;
+    while(st<=end){
+        mid=st+(end-st);
+        if(nums[mid]<=nums[end]){
+            if(nums[mid]<ans){
+            ans=nums[mid];
+}
+            end=mid-1;
+        }else{
+            if(nums[mid]<ans){
+            ans=nums[mid];}
+            st=mid+1;
+        }
     }
-    if (nums[hi] < nums[lo]) return nums[hi];
-    return nums[lo];
-  }
+    return ans;
+    }
 };
