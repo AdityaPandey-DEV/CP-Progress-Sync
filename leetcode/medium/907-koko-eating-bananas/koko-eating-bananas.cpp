@@ -1,30 +1,38 @@
 class Solution {
-  bool canEat(vector<int>& piles, int mx, int h) {
-    int hour = 0;
-    int sum = 0;
-    for (int i = 0; i < piles.size(); i++) {
-      hour += (piles[i] + mx - 1) / mx;
-      if (hour > h) return false;
+    
+    bool canEat(vector<int>& piles,int h,int k){
+        int n=piles.size();
+        long long  time=0;
+        for(int i=0;i<n;i++){
+            if(piles[i]<k){
+                time +=1;
+            }
+            else{
+                time+=piles[i]/k;
+                if(piles[i]%k>0){
+                    time+=1;
+                }
+            }
+        }
+        if(time<=h){
+            return true;
+        }
+        return false;
     }
-    return true;
-  }
-
- public:
-  int minEatingSpeed(vector<int>& piles, int h) {
-    int left = 1;
-    int right = *max_element(piles.begin(), piles.end());
-    int res = right;
-    while (left <= right) {
-      int mid = left + (right - left) / 2;
-
-      if (canEat(piles, mid, h)) {
-        res = mid;
-        right = mid - 1;
-
-      } else {
-        left = mid + 1;
-      }
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int low =1,high=*max_element(begin(piles),end(piles));
+        int mid;
+        while(low<high){
+            mid=low+(high-low)/2;
+            if(canEat(piles,h,mid)){
+                high=mid;
+            }
+            else{
+                low=mid+1;
+            }
+            cout<<"LOW->"<<low<<"MID->"<<mid<<"high-->"<<high<<endl;
+        }
+        return low;
     }
-    return res;
-  }
 };
