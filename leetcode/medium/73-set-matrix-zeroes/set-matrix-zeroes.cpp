@@ -1,23 +1,28 @@
 class Solution {
- public:
-  void setZeroes(vector<vector<int>>& matrix) {
-    vector<pair<int, int>> p;
-    for (int i = 0; i < matrix.size(); i++) {
-      for (int j = 0; j < matrix[0].size(); j++) {
-        if (matrix[i][j] == 0) {
-          p.push_back({i, j});
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        using index=pair<int,int>;
+        deque<index>q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(matrix[i][j]==0){
+                    q.push_back({i,j});
+                }
+            }
         }
-      }
+        while(!q.empty()){
+            index i=q.front();
+            q.pop_front();
+            int a=i.first;
+            int b=i.second;
+            for(int i=0;i<n;i++){
+                matrix[i][b]=0;
+            }
+            for(int i=0;i<m;i++){
+                matrix[a][i]=0;
+            }
+        }
     }
-    for (int k = 0; k < p.size(); k++) {
-      int i = p[k].first;
-      int j = p[k].second;
-      for (int a = 0; a < matrix.size(); a++) {
-        matrix[a][j] = 0;
-      }
-      for (int a = 0; a < matrix[0].size(); a++) {
-        matrix[i][a] = 0;
-      }
-    }
-  }
 };
