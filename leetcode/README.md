@@ -13,7 +13,7 @@ This folder contains solutions to LeetCode problems organized by difficulty leve
 **Current Breakdown:**
 - Easy: 107 problems
 - Medium: 196 problems
-- Hard: 56 problems
+- Hard: 57 problems
 
 _Note: Statistics are auto-updated via scripts. Run `python scripts/count_problems.py` to update._
 
