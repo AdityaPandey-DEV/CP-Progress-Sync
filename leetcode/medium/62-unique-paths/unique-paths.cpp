@@ -1,23 +1,20 @@
 class Solution {
-  int rec(int m, int n, vector<vector<int>>& dp) {
-    if (m < 0 || n < 0) {
-      return 0;
+    vector<vector<int>>dp;
+    int rec(int i,int j,int m, int n){
+        if(i<0||i>m||j<0||j>n){
+            return 0;
+        }
+        if(i==0&&j==0){
+            return 1;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        return dp[i][j]=rec(i-1,j,m,n)+rec(i,j-1,m,n);
     }
-    if (dp[m][n] != -1) {
-      return dp[m][n];
+public:
+    int uniquePaths(int m, int n) {
+        dp.assign(m,vector<int>(n,-1));
+        return rec(m-1,n-1,m,n);
     }
-    if (m == 0 && n == 0) {
-      return 1;
-    }
-    return dp[m][n] = rec(m - 1, n, dp) + rec(m, n - 1, dp);
-  }
-
- public:
-  int uniquePaths(int m, int n) {
-    vector<vector<int>> dp(m, vector<int>(n, -1));
-    // for(int i=0;i<m;i++){
-    //     for
-    // }
-    return rec(m - 1, n - 1, dp);
-  }
 };
