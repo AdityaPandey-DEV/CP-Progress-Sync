@@ -1,18 +1,18 @@
 class Solution {
- public:
-  int majorityElement(vector<int>& nums) {
-    unordered_map<int, int> hash;
-    int res = 0;
-    int majority = 0;
-
-    for (int n : nums) {
-      hash[n] = 1 + hash[n];
-      if (hash[n] > majority) {
-        res = n;
-        majority = hash[n];
-      }
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int,int>freq;
+        for(auto n:nums){
+            freq[n]++;
+        }
+        int maxfreq=0;
+        int maxNo;
+        for(auto [x,y]:freq){
+            if(y>maxfreq){
+                maxfreq=y;
+                maxNo=x;
+            }
+        }
+        return maxNo;
     }
-
-    return res;
-  }
 };
