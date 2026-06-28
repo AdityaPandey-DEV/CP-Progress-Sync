@@ -9,26 +9,23 @@
  * };
  */
 class Solution {
-public:
-    bool isPalindrome(ListNode* head) {
-        ListNode* curr=head;
-        stack<int>st;
+ public:
+  bool isPalindrome(ListNode* head) {
+    ListNode* curr = head;
+    stack<int> st;
 
-        while(curr!=NULL){
-            st.push(curr->val);
-            curr=curr->next;
-        }
-        curr=head;
-        while(curr!=NULL){
-            if(curr->val!=st.top()){
-                return false;
-            }
-            st.pop();
-            curr=curr->next;
-        }
-        return true;
-
-
-
+    while (curr != NULL) {
+      st.push(curr->val);
+      curr = curr->next;
     }
+    curr = head;
+    while (curr != NULL) {
+      if (curr->val != st.top()) {
+        return false;
+      }
+      st.pop();
+      curr = curr->next;
+    }
+    return true;
+  }
 };
