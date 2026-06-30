@@ -1,27 +1,20 @@
 class MyStack {
-    stack<int>s;
-public:
-    MyStack() {
-        
-    }
-    
-    void push(int x) {
-        s.push(x);
-    }
-    
-    int pop() {
-        int i=s.top();
-        s.pop();
-        return i;
-    }
-    
-    int top() {
-        return s.top();
-    }
-    
-    bool empty() {
-        return s.empty();
-    }
+  stack<int> s;
+
+ public:
+  MyStack() {}
+
+  void push(int x) { s.push(x); }
+
+  int pop() {
+    int i = s.top();
+    s.pop();
+    return i;
+  }
+
+  int top() { return s.top(); }
+
+  bool empty() { return s.empty(); }
 };
 
 /**
