@@ -1,80 +1,82 @@
 class Solution {
- public:
-  static const int LOG = 18;
+    int rows;
+    int col;
+    vector<vector<int>>at;
+    int cub(vector<pair<int,int>>&arr,int target){
+        int n=arr.size();
+        int l=0;
+        int r=n-1;
+        int ans=0;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(arr[mid].first<=target){
+                l=mid+1;
+                ans=mid;
+            }
+            else{
+                r=mid-1;
+            }
+        }
+        return ans;
 
-  int up[LOG][100005];
-  int pos[100005];
-  pair<int, int> arr[100005];
-
-  // Returns minimum jumps required to reach v from u
-  int getJumps(int u, int v) {
-    if (u == v) return 0;
-
-    // Can reach in one jump
-    if (up[0][u] >= v) return 1;
-
-    // Cannot reach
-    if (up[LOG - 1][u] < v) return -1;
-
-    int jumps = 0;
-
-    // Binary Lifting
-    for (int j = LOG - 1; j >= 0; j--) {
-      if (up[j][u] < v) {
-        jumps += (1 << j);
-        u = up[j][u];
-      }
     }
+public:
+    vector<int> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
+        vector<pair<int,int>>arr(n);
+        for(int i=0;i<n;i++){
+            arr[i]={nums[i],i};
+        }
+        sort(arr.begin(),arr.end());
+        vector<int>nodetoIdx(n);
+        for(int i=0;i<n;i++){
+            int node=arr[i].second;
+            nodetoIdx[node]=i; 
+        }
+        rows=n;
+        col=log2(n)+1;
+        at.resize(rows,vector<int>(col,0));
+        for(int node=0;node<n;node++){
+            int fioh=cub(arr,arr[node].first+maxDiff);
+            at[node][0]=fioh;
+        }
+        for(int j=1;j<col;j++){
+            for(int node=0;node<rows;node++){
+                at[node][j]=at[at[node][j-1]][j-1];
+            }
+        }
+        vector<int>ans;
+        for(auto &q:queries){
+            int u=q[0];
+            int v=q[1];
+            int a=nodetoIdx[u];
+            int b=nodetoIdx[v];
+             if(a==b){
+                ans.push_back(0);
+                continue;
+            }
+            if(a>b){
+                swap(a,b);
+            }
+            int curr=a;
+            int jumps=0;
+            for(int j=col-1;j>=0;j--){
+                if(at[curr][j]<b){
+                    curr=at[curr][j];
+                    jumps+=(1<<j);
+                }
 
-    return jumps + 1;
-  }
+                
+            }
+            if(at[curr][0]>=b){
+                ans.push_back(jumps+1);
+            }
+            else{
+                ans.push_back(-1);
+            }
+        
+           
+        }
+        return ans;
 
-  vector<int> pathExistenceQueries(int n, vector<int>& nums, int maxDiff,
-                                   vector<vector<int>>& queries) {
-    // Store value with original index
-    for (int i = 0; i < n; i++) {
-      arr[i] = {nums[i], i};
     }
-
-    // Sort by value
-    sort(arr, arr + n);
-
-    // Position of original indices in sorted array
-    for (int i = 0; i < n; i++) {
-      pos[arr[i].second] = i;
-    }
-
-    // Sliding Window
-    int right = 0;
-
-    for (int left = 0; left < n; left++) {
-      while (right + 1 < n &&
-             arr[right + 1].first - arr[left].first <= maxDiff) {
-        right++;
-      }
-
-      up[0][left] = right;
-    }
-
-    // Build Binary Lifting Table
-    for (int j = 1; j < LOG; j++) {
-      for (int i = 0; i < n; i++) {
-        up[j][i] = up[j - 1][up[j - 1][i]];
-      }
-    }
-
-    // Answer Queries
-    vector<int> ans;
-
-    for (auto& q : queries) {
-      int u = pos[q[0]];
-      int v = pos[q[1]];
-
-      if (u > v) swap(u, v);
-
-      ans.push_back(getJumps(u, v));
-    }
-
-    return ans;
-  }
 };
