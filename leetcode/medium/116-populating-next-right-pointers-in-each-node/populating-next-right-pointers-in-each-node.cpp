@@ -17,23 +17,23 @@ public:
 */
 
 class Solution {
-public:
-    Node* connect(Node* root) {
-        if(root==NULL)return NULL;
-        queue<Node*>q;
-        q.push(root);
-        while(!q.empty()){
-            Node*curr;
-            int n=q.size();
-            while(n--){
-                curr=q.front();
-                q.pop();
-                curr->next=q.front();
-                if(curr->left)q.push(curr->left);
-                if(curr->right)q.push(curr->right);
-            }
-            curr->next=NULL;
-        }
-        return root;
+ public:
+  Node* connect(Node* root) {
+    if (root == NULL) return NULL;
+    queue<Node*> q;
+    q.push(root);
+    while (!q.empty()) {
+      Node* curr;
+      int n = q.size();
+      while (n--) {
+        curr = q.front();
+        q.pop();
+        curr->next = q.front();
+        if (curr->left) q.push(curr->left);
+        if (curr->right) q.push(curr->right);
+      }
+      curr->next = NULL;
     }
+    return root;
+  }
 };
