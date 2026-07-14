@@ -17,12 +17,12 @@ public:
         int csum=0;
         for(auto &[target,sum]:diff){
             csum+=sum;
-            
+            sum=csum;
             int targetFreq=freq[target];
             int need=csum-targetFreq;
             int maxPossible=min(need,numOperations);
             ans=max(ans,targetFreq+maxPossible);
-            sum=csum;
+            
             
         }
         return ans;
