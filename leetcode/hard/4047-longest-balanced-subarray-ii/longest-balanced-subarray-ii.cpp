@@ -1,101 +1,86 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-struct SegTree {
-  int n;
-  vector<int> mn, mx, lazy;
-  SegTree(int _n) : n(_n), mn(4 * n, 0), mx(4 * n, 0), lazy(4 * n, 0) {}
-  void apply(int idx, int v) {
-    mn[idx] += v;
-    mx[idx] += v;
-    lazy[idx] += v;
-  }
-  void push(int idx) {
-    if (lazy[idx] != 0) {
-      apply(idx << 1, lazy[idx]);
-      apply(idx << 1 | 1, lazy[idx]);
-      lazy[idx] = 0;
+class Tree {
+    vector<pair<int, int>> segTree;
+    vector<int> lazy;
+    public:
+    Tree(int n) {
+        segTree.resize(4 * n);
+        lazy.resize(4 * n);
     }
-  }
-  void pull(int idx) {
-    mn[idx] = min(mn[idx << 1], mn[idx << 1 | 1]);
-    mx[idx] = max(mx[idx << 1], mx[idx << 1 | 1]);
-  }
-  void add_range(int idx, int l, int r, int ql, int qr, int val) {
-    if (ql > qr) return;
-    if (ql <= l && r <= qr) {
-      apply(idx, val);
-      return;
+    void update(int i, int l, int r, int start, int end, int val) {
+        if (lazy[i] != 0) {
+            segTree[i].first += lazy[i];
+            segTree[i].second += lazy[i];
+            if (l != r) {
+                lazy[2 * i + 1] += lazy[i];
+                lazy[2 * i + 2] += lazy[i];
+            }
+            lazy[i] = 0;
+        }
+        //[l,r] [start,end] [l,r]
+        if (r < start || l > end)
+            return;
+        if (start <= l && r <= end) {
+            segTree[i].first += val;
+            segTree[i].second += val;
+            if (l != r) {
+                lazy[2 * i + 1] += val;
+                lazy[2 * i + 2] += val;
+            }
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        update(2 * i + 1, l, mid, start, end, val);
+        update(2 * i + 2, mid + 1, r, start, end, val);
+        segTree[i].first =
+            min(segTree[2 * i + 1].first, segTree[2 * i + 2].first);
+        segTree[i].second =
+            max(segTree[2 * i + 1].second, segTree[2 * i + 2].second);
+        return;
     }
-    push(idx);
-    int mid = (l + r) >> 1;
-    if (ql <= mid) add_range(idx << 1, l, mid, ql, min(qr, mid), val);
-    if (qr > mid)
-      add_range(idx << 1 | 1, mid + 1, r, max(ql, mid + 1), qr, val);
-    pull(idx);
-  }
-  void add_range(int l, int r, int val) {
-    if (l > r) return;
-    add_range(1, 0, n - 1, l, r, val);
-  }
-  int find_rightmost_zero(int idx, int l, int r, int ql, int qr) {
-    if (ql > qr || qr < l || ql > r) return -1;
-    if (mn[idx] > 0 || mx[idx] < 0) return -1;
-    if (l == r) {
-      if (mn[idx] == 0) return l;
-      return -1;
+    int query(int i, int l, int r) {
+        if (lazy[i] != 0) {
+            segTree[i].first += lazy[i];
+            segTree[i].second += lazy[i];
+            if (l != r) {
+                lazy[2 * i + 1] += lazy[i];
+                lazy[2 * i + 2] += lazy[i];
+            }
+            lazy[i] = 0;
+        }
+        if(segTree[i].first>0||segTree[i].second<0) return -1;
+        if(l==r)return l;
+        int mid=l+(r-l)/2;
+        int left=query(2*i+1,l,mid);
+        if(left!=-1){
+            return left;
+        }
+        return query(2*i+2,mid+1,r);
     }
-    push(idx);
-    int mid = (l + r) >> 1;
-    if (qr > mid) {
-      int res =
-          find_rightmost_zero(idx << 1 | 1, mid + 1, r, max(ql, mid + 1), qr);
-      if (res != -1) return res;
-    }
-    if (ql <= mid) {
-      return find_rightmost_zero(idx << 1, l, mid, ql, min(qr, mid));
-    }
-    return -1;
-  }
-  int find_rightmost_zero(int ql, int qr) {
-    if (ql > qr) return -1;
-    return find_rightmost_zero(1, 0, n - 1, ql, qr);
-  }
 };
-
 class Solution {
- public:
-  int longestBalanced(vector<int> &nums) {
-    int n = nums.size();
-    unordered_map<int, vector<int>> pos;
-    pos.reserve(n * 2);
-    for (int i = 0; i < n; ++i) pos[nums[i]].push_back(i);
-
-    SegTree st(n);
-    for (auto &kv : pos) {
-      int val = kv.first;
-      int sign = (val & 1) ? 1 : -1;
-      int p = kv.second[0];
-      st.add_range(p, n - 1, sign);
+public:
+    int longestBalanced(vector<int>& nums) {
+        int n = nums.size();
+        Tree s(n);
+        vector<int>cumulativeSum(n,0);
+        int maxL=0;
+        unordered_map<int,int>mp;
+        for(int r=0;r<n;r++){
+            int val=(nums[r]%2==0)?1:-1;
+            int prev=-1;
+            if(mp.count(nums[r])){
+                prev=mp[nums[r]];
+            }
+            if(prev!=-1){
+                s.update(0,0,n-1,0,prev,-val);
+            }
+            s.update(0,0,n-1,0,r,val);
+            int l=s.query(0,0,n-1);
+            if(l!=-1){
+                maxL=max(maxL,r-l+1);
+            }
+            mp[nums[r]]=r;
+        }
+        return maxL;
     }
-
-    unordered_map<int, int> ptr;
-    ptr.reserve(pos.size() * 2);
-    for (auto &kv : pos) ptr[kv.first] = 0;
-
-    int ans = 0;
-    for (int l = 0; l < n; ++l) {
-      int r = st.find_rightmost_zero(l, n - 1);
-      if (r != -1) ans = max(ans, r - l + 1);
-
-      int x = nums[l];
-      int pIndex = ptr[x];
-      ptr[x] = pIndex + 1;
-      int nextPos = (ptr[x] < (int)pos[x].size()) ? pos[x][ptr[x]] : n;
-      int sign = (x & 1) ? 1 : -1;
-      int L = l, R = nextPos - 1;
-      if (L <= R) st.add_range(L, R, -sign);
-    }
-    return ans;
-  }
 };
