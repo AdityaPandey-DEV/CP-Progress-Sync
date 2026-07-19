@@ -1,75 +1,78 @@
-class Solution {
-  void buildSegmentTree(int n, int l, int r, int segmentTree[],
-                        vector<int>& heights) {
-    if (l == r) {
-      segmentTree[n] = l;
-      return;
-    } else {
-      int mid = (l + r) / 2;
-      buildSegmentTree(2 * n + 1, l, mid, segmentTree, heights);
-      buildSegmentTree(2 * n + 2, mid + 1, r, segmentTree, heights);
-      int left = segmentTree[2 * n + 1];
-      int right = segmentTree[2 * n + 2];
-      segmentTree[n] = (heights[left] > heights[right]) ? left : right;
-    }
-  }
-  int* constructST(vector<int>& heights, int n) {
-    int* segmentTree = new int[4 * n];
-    buildSegmentTree(0, 0, n - 1, segmentTree, heights);
-    return segmentTree;
-  }
+class tree {
+    // l,r->nums pointer
+    // i->segTree
+    // start,end ->range
+    vector<int> nums;
+    vector<int> segTree;
 
-  int query(int start, int end, int i, int l, int r, int st[],
-            vector<int>& heights) {
-    if (l > end || r < start) {
-      return -1;
+public:
+    tree(vector<int>& heights) {
+        nums = heights;
+        int n = nums.size();
+        segTree.resize(4 * n);
+        build(0, 0, n - 1);
     }
-    if (l >= start && r <= end) {
-      return st[i];
-    }
-    int mid = (l + r) / 2;
-    int leftIndex = query(start, end, 2 * i + 1, l, mid, st, heights);
-    int rightIndex = query(start, end, 2 * i + 2, mid + 1, r, st, heights);
-    if (leftIndex == -1) return rightIndex;
-    if (rightIndex == -1) return leftIndex;
-    return (heights[leftIndex] > heights[rightIndex]) ? leftIndex : rightIndex;
-  }
-  int RIMQ(int st[], vector<int>& heights, int n, int l, int r) {
-    return query(l, r, 0, 0, n - 1, st, heights);
-  }
-
- public:
-  vector<int> leftmostBuildingQueries(vector<int>& heights,
-                                      vector<vector<int>>& queries) {
-    int n = heights.size();
-    int* segmentTree = constructST(heights, n);
-    vector<int> result;
-    for (auto& query : queries) {
-      int min_idx = min(query[0], query[1]);
-      int max_idx = max(query[0], query[1]);
-      if (min_idx == max_idx) {
-        result.push_back(max_idx);
-        continue;
-      } else if (heights[min_idx] < heights[max_idx]) {
-        result.push_back(max_idx);
-        continue;
-      }
-      int l = max_idx + 1;
-      int r = n - 1;
-      int result_idx = INT_MAX;
-      while (l <= r) {
-        int mid = l + (r - l) / 2;
-        int idx = RIMQ(segmentTree, heights, n, l, mid);
-        if (heights[idx] > max(heights[min_idx], heights[max_idx])) {
-          result_idx = min(result_idx, idx);
-          r = mid - 1;
-        } else {
-          l = mid + 1;
+    void build(int i, int l, int r) {
+        if (l == r) {
+            segTree[i] = l;
+            return;
         }
-      }
-      result_idx = (result_idx == INT_MAX) ? -1 : result_idx;
-      result.push_back(result_idx);
+        int mid = l + (r - l) / 2;
+        build(2 * i + 1, l, mid);
+        build(2 * i + 2, mid + 1, r);
+        segTree[i] = (nums[segTree[2 * i + 1]] > nums[segTree[2 * i + 2]])
+                         ? segTree[2 * i + 1]
+                         : segTree[2 * i + 2];
     }
-    return result;
-  }
+    int query(int i, int start, int end, int l, int r) {
+        if (l > end || r < start) {
+            return -1;
+        }
+        if (l >= start && r <= end) {
+            return segTree[i];
+        }
+        int mid = l + (r - l) / 2;
+        int left = query(2 * i + 1, start, end, l, mid);
+        int right = query(2 * i + 2, start, end, mid + 1, r);
+        if (left == -1) return right;
+        if (right == -1) return left;
+        return (nums[left] > nums[right]) ? left : right;
+    }
+};
+
+class Solution {
+
+public:
+    vector<int> leftmostBuildingQueries(vector<int>& heights,
+                                        vector<vector<int>>& queries) {
+        vector<int> ans;
+        int n;
+        tree s(heights);
+        n = heights.size();
+        for (auto& q : queries) {
+            int a=q[0];
+            int b=q[1];
+            if(a>b)swap(a,b);
+            if(a==b||heights[b]>heights[a]){
+                ans.push_back(b);
+                continue;
+            }
+            int result =-1;
+            int l=b+1;
+            int r=n-1;
+            while (l <= r) {
+                int mid = l + (r - l) / 2;
+                int idx = s.query(0, b+1, mid, 0, n - 1);
+                if (idx!=-1&&heights[idx] > heights[a]) {
+                    result =idx;
+                    r = mid - 1;
+                } else   {
+        
+                    l = mid + 1;
+                }
+            }
+            ans.push_back(result);
+        }
+        return ans;
+    }
 };
