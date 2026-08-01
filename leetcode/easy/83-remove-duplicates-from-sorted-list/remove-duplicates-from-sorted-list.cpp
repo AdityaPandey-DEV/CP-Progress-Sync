@@ -9,23 +9,22 @@
  * };
  */
 class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        set<int>st;
-        if(head==NULL){
-            return NULL;
-        }
-        ListNode* curr=head;
-        st.insert(curr->val);
-        while(curr->next!=NULL){
-            if(st.count(curr->next->val)){
-                curr->next=curr->next->next;
-            }
-            else{
-                st.insert(curr->next->val);
-                curr=curr->next;
-            }
-        }
-        return head;
+ public:
+  ListNode* deleteDuplicates(ListNode* head) {
+    set<int> st;
+    if (head == NULL) {
+      return NULL;
     }
+    ListNode* curr = head;
+    st.insert(curr->val);
+    while (curr->next != NULL) {
+      if (st.count(curr->next->val)) {
+        curr->next = curr->next->next;
+      } else {
+        st.insert(curr->next->val);
+        curr = curr->next;
+      }
+    }
+    return head;
+  }
 };
