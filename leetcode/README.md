@@ -8,11 +8,11 @@ This folder contains solutions to LeetCode problems organized by difficulty leve
 
 ## 📊 Statistics
 
-![LeetCode Solved](https://img.shields.io/badge/Problems%20Solved-448-FFA116?logo=leetcode&logoColor=black)
+![LeetCode Solved](https://img.shields.io/badge/Problems%20Solved-449-FFA116?logo=leetcode&logoColor=black)
 
 **Current Breakdown:**
 - Easy: 133 problems
-- Medium: 244 problems
+- Medium: 245 problems
 - Hard: 71 problems
 
 _Note: Statistics are auto-updated via scripts. Run `python scripts/count_problems.py` to update._
