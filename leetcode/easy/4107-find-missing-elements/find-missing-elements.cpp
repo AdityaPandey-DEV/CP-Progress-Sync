@@ -1,20 +1,16 @@
 class Solution {
- public:
-  vector<int> findMissingElements(vector<int>& nums) {
-    int min = *min_element(nums.begin(), nums.end());
-    int max = *max_element(nums.begin(), nums.end());
-    vector<int> ans;
-    vector<int> h(max - min + 1, 0);
-    sort(nums.begin(), nums.end());
-    for (int i = 0; i < nums.size(); i++) {
-      h[nums[i] - min]++;
+public:
+    vector<int> findMissingElements(vector<int>& nums) {
+        vector<int>ans={};
+        int mini=*min_element(nums.begin(),nums.end());
+        int maxi=*max_element(nums.begin(),nums.end());
+        int n=nums.size();
+        set<int>st(nums.begin(),nums.end());
+        for(int i=mini;i<=maxi;i++){
+            if(!st.count(i)){
+                ans.push_back(i);
+            }
+        }
+        return ans;
     }
-    for (int i = 0; i < h.size(); i++) {
-      if (h[i] == 0) {
-        ans.push_back(i + min);
-      }
-    }
-
-    return ans;
-  }
 };
