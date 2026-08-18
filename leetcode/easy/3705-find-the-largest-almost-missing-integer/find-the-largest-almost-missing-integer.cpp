@@ -12,7 +12,7 @@ public:
             }
             mp[nums[j]]++;
             if (j - i +1 == k) {
-                cout<<"j:-"<<j<<" i:-"<<i<<endl;
+                // cout<<"j:-"<<j<<" i:-"<<i<<endl;
                 for (auto [u, v] : mp) {
                     if(v>0){
                     cout<<u<<endl;
@@ -26,7 +26,7 @@ public:
         }
         int ans = -1;
         for (auto it = freq.rbegin(); it != freq.rend(); it++) {
-            cout << it->first << ":" << it->second << endl;
+            // cout << it->first << ":" << it->second << endl;
             if (it->second == 1) {
                 ans = it->first;
                 break;
