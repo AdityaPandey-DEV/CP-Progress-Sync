@@ -3,30 +3,23 @@ class Solution {
     int n;
     int target;
     unordered_set<string> st;
+    vector<int>dp;
     using ll = long long;
-    bool rec(int i, vector<int>& side) {
-        if (i == n) {
-            for (int j = 0; j < 4; j++) {
-                if(side[j]!=target)return false;
-            }
+    bool rec(int mask,int currSum) {
+        if (mask == (1<<n)-1) {
             return true;
         }
-        string curr = to_string(i);
-        for (int j = 0; j < 4; j++) {
-            curr += ",";
-            curr += to_string(side[j]);
-        }
-        if (st.count(curr))
-            return false;
-        for (int j = 0; j < 4; j++) {
-            if (side[j] + nums[i] <= target) {
-                side[j] += nums[i];
-                if(rec(i + 1, side))return true;
-                side[j] -= nums[i];
+        if(dp[mask]!=-1)return dp[mask];
+        for(int i=0;i<n;i++){
+            if((mask&(1<<i))==0){
+                if(currSum+nums[i]>target)continue;
+                int nextSum=currSum+nums[i];
+                int nextMask=mask|(1<<i);
+                if(nextSum==target)nextSum=0;
+                if(rec(nextMask,nextSum))return dp[mask]=true;
             }
         }
-        st.insert(curr);
-        return false;
+        return dp[mask]=false;
     }
 
 public:
@@ -38,7 +31,7 @@ public:
             return false;
         target = sum / 4;
         n = nums.size();
-        sort(nums.rbegin(),nums.rend());
-        return rec(0, side);
+        dp.assign((1<<n),-1);
+        return rec(0, 0);
     }
 };
