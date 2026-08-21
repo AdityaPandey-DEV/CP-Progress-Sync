@@ -6,9 +6,10 @@ class Solution {
     using ll = long long;
     bool rec(int i, vector<int>& side) {
         if (i == n) {
-            ll maxe = *max_element(side.begin(), side.end());
-            ll mine = *min_element(side.begin(), side.end());
-            return maxe == mine;
+            for (int j = 0; j < 4; j++) {
+                if(side[j]!=target)return false;
+            }
+            return true;
         }
         string curr = to_string(i);
         for (int j = 0; j < 4; j++) {
