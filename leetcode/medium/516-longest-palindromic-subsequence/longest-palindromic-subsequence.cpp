@@ -16,9 +16,8 @@ public:
                 else{
                     dp[i][j]=max(dp[i+1][j],dp[i][j-1]);
                 }
-                ans=max(ans,dp[i][j]);
             }
         }
-        return ans;
+        return dp[0][n-1];
     }
 };
