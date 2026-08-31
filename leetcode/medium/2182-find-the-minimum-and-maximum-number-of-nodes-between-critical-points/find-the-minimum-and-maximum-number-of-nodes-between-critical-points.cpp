@@ -11,28 +11,31 @@
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
-        ListNode* curr=head;
-        ListNode* prev=NULL;
-        int minDistance=1e9,maxDistance=0;
-        int idx=-1;
-        int i=1;
-        int sidx=-1;
-        while(curr!=NULL&&curr->next!=NULL){
-            if(prev!=NULL&&((curr->val > prev->val && curr->val > curr->next->val)||(curr->val < prev->val &&curr->val < curr->next->val))){
-                if(idx==-1){idx=i;
-                sidx=i;
-                cout<<i<<" ";}
-                else{
-                    cout<<i<<" ";
-                    minDistance=min(minDistance,i-idx);
-                    idx=i;
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        int minDistance = 1e9, maxDistance = 0;
+        int idx = -1;
+        int i = 1;
+        int sidx = -1;
+        while (curr != NULL && curr->next != NULL) {
+            if (prev != NULL &&
+                ((curr->val > prev->val && curr->val > curr->next->val) ||
+                 (curr->val < prev->val && curr->val < curr->next->val))) {
+                if (idx == -1) {
+                    idx = i;
+                    sidx = i;
+                } else {
+                    minDistance = min(minDistance, i - idx);
+                    idx = i;
                 }
             }
             i++;
-            prev=curr;
-            curr=curr->next;
+            prev = curr;
+            curr = curr->next;
         }
-        if(sidx!=-1)maxDistance=idx-sidx;
-        return {minDistance==1e9?-1:minDistance,maxDistance==0?-1:maxDistance};
+        if (sidx != -1)
+            maxDistance = idx - sidx;
+        return {minDistance == 1e9 ? -1 : minDistance,
+                maxDistance == 0 ? -1 : maxDistance};
     }
 };
