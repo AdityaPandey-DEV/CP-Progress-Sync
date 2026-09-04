@@ -25,7 +25,6 @@ public:
         vector<int>right=maxRight();
         int ans=0;
         for(int i=0;i<n;i++){
-            if(left[i]==-1||right[i]==-1)continue;
             ans+=min(right[i],left[i])-nums[i];
         }
         return ans;
