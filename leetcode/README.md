@@ -8,7 +8,7 @@ This folder contains solutions to LeetCode problems organized by difficulty leve
 
 ## 📊 Statistics
 
-![LeetCode Solved](https://img.shields.io/badge/Problems%20Solved-502-FFA116?logo=leetcode&logoColor=black)
+![LeetCode Solved](https://img.shields.io/badge/Problems%20Solved-503-FFA116?logo=leetcode&logoColor=black)
 
 **Current Breakdown:**
 - Easy: 143 problems
