@@ -17,6 +17,6 @@ class Solution {
 public:
     int getMoneyAmount(int n) {
         dp.assign(n+1,vector<int>(n+1,-1));
-        return rec(1,n);
+        return rec(0,n);
     }
 };
