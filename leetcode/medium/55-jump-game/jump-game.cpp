@@ -1,14 +1,17 @@
 class Solution {
- public:
-  bool canJump(vector<int>& nums) {
-    int n = nums.size();
-    int maxRange = 0;
-    for (int i = 0; i < n; i++) {
-      if (i > maxRange) {
-        return false;
-      }
-      maxRange = max(maxRange, i + nums[i]);
+public:
+    bool canJump(vector<int>& nums) {
+        int canreach=0;
+        int i,n=nums.size();
+        if(n==1)return true;
+        for(i=0;i<n-1;i++){
+            if(canreach<i)break;
+            canreach=max(nums[i]+i,canreach);
+            // cout<<i<<endl;
+            
+        } 
+        cout<<i<<endl;
+        return canreach>=n-1;
+        
     }
-    return true;
-  }
 };
