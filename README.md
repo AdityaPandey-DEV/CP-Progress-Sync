@@ -1,63 +1,56 @@
-<div align="center">
+# CP Progress Sync
 
-# 🚀 CP Progress Sync
+**Automated competitive programming tracker — LeetCode, Codeforces, & GFG sync with dynamic markdown dashboards.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Automated-blue.svg)](.github/workflows)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-> **A powerful, automated tool to track and sync competitive programming and coding activity from platforms like LeetCode and Codeforces directly to GitHub.**
-
-This repository is an automated, live portfolio of my problem-solving journey. It features optimized solutions in **C++** and **Python** synchronized flawlessly from top coding platforms.
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
 ---
 
-</div>
+## What It Does
 
-##  Live Stats & Rating Graphs
+Automates the tracking of competitive programming progress across multiple platforms, generating dynamic markdown dashboards and auto-committing daily progress snapshots via GitHub Actions.
 
-Watch my progress in real-time through these auto-updating statistic cards.
+**Key Features:**
+- **Multi-platform sync** — LeetCode, Codeforces, GeeksforGeeks
+- **Automated workflows** — GitHub Actions cron jobs for daily updates
+- **Dynamic dashboard** — markdown generator with live stats
+- **Solution archive** — categorized C++ solutions and learning notes
 
-<p align="center">
-  <img src="https://leetcard.jacoblin.cool/AdityaPandey-DEV?theme=dark&font=baloo&ext=activity" alt="LeetCode Stats" height="195"/>
-  <img src="https://codeforces-readme-stats.vercel.app/api/card?username=AdityaPandey-DEV&theme=dark" alt="Codeforces Stats" height="195"/>
-  <img src="https://github-readme-stats.vercel.app/api?username=AdityaPandey-DEV&show_icons=true&theme=radical" alt="GitHub Stats" height="195"/>
-</p>
+## Architecture
 
----
+```
+GitHub Actions (Cron) → Scrape/API Fetch (LeetCode, CF, GFG)
+                              ↓
+                      Markdown Generator
+                              ↓
+                      Git Commit & Push
+```
 
-## ✨ Supercharged Features
+## Tech Stack
 
-- ✅ **534+ CP & DSA Problems Solved**: Daily tracked progress across top platforms.
-- 🤖 **Auto Commits**: Solutions are fetched and committed to this repository entirely hands-free using GitHub Actions.
-- 📈 **Dynamic Dashboards**: A monthly progress dashboard tracking problems solved over time. _([View Dashboard](dashboard.md))_
-- 🏆 **Multi-Platform Support**: Seamlessly syncs from **LeetCode**, **Codeforces**, and **GeeksforGeeks**.
-- 📊 **Live Rating Graphs**: Embedded stats cards updating automatically with every new submission.
-- 💡 **Clean Code Principles**: Every pushed solution is linted, formatted, and optimized for space and time complexity.
+| Component | Technology |
+|---|---|
+| Solutions | C++ |
+| Automation | GitHub Actions |
+| Scripts | Shell scripting |
+| Output | Markdown |
 
----
+## My Role
 
-## 📂 Repository Architecture
+I designed the multi-platform sync strategy, planned the GitHub Actions schedule, and structured the solution repository. Code generation was accelerated using AI tools; handling API limits and git auto-commit workflows is mine.
+
+## Quick Start
 
 ```bash
-.
-├── codeforces/      # Codeforces contest solutions & explanations
-├── leetcode/        # Categorized LeetCode solutions (Easy/Medium/Hard)
-├── geeksforgeeks/   # GFG problem of the day and practice solutions
-├── scripts/         # Engine: Python scripts powering the dashboard & stats
-└── .github/         # CI/CD: Automated Sync & Linting workflows
+git clone https://github.com/AdityaPandey-DEV/CP-Progress-Sync.git && cd CP-Progress-Sync
+# Workflows run automatically via .github/workflows/
 ```
 
 ---
 
----
+<div align="center">
 
-## 📜 License
+*Architected & built by [Aditya Pandey](https://github.com/AdityaPandey-DEV) — AI-augmented development*
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-<p align="center">
-  Built with ❤️ and ☕ by <a href="https://github.com/AdityaPandey-DEV">Aditya Pandey</a>
-</p>
+</div>
