@@ -20,7 +20,7 @@ class Solution {
     sort(parts.begin(), parts.end(), greater<string>());
 
     string result;
-    for (auto &p : parts) result += p;
+    for (auto& p : parts) result += p;
 
     return result;
   }

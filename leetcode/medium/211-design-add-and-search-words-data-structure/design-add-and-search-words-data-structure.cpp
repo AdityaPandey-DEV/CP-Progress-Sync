@@ -1,16 +1,16 @@
 class WordDictionary {
  public:
   bool isEndOfWord;
-  WordDictionary *child[26];
+  WordDictionary* child[26];
   WordDictionary() {
     isEndOfWord = false;
-    for (auto &c : child) {
+    for (auto& c : child) {
       c = NULL;
     }
   }
 
   void addWord(string word) {
-    WordDictionary *curl = this;
+    WordDictionary* curl = this;
     for (auto ch : word) {
       int idx = ch - 'a';
       if (curl->child[idx] == NULL) {
@@ -21,7 +21,7 @@ class WordDictionary {
     curl->isEndOfWord = true;
   }
 
-  bool searchHelper(string &word, int pos, WordDictionary *node) {
+  bool searchHelper(string& word, int pos, WordDictionary* node) {
     if (pos == word.size()) return node->isEndOfWord;
 
     char ch = word[pos];

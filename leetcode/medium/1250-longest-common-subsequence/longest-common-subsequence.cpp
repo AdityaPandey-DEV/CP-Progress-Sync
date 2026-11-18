@@ -1,6 +1,6 @@
 class Solution {
   vector<vector<int>> dp;
-  int lcs(int i, int j, string &text1, string &text2) {
+  int lcs(int i, int j, string& text1, string& text2) {
     if (i < 0 || j < 0) {
       return 0;
     }

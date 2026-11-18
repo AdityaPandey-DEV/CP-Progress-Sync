@@ -1,7 +1,7 @@
 class Solution {
  public:
-  static bool cmp(string &a, string &b) { return a + b > b + a; }
-  string largestNumber(vector<int> &nums) {
+  static bool cmp(string& a, string& b) { return a + b > b + a; }
+  string largestNumber(vector<int>& nums) {
     vector<string> st;
     string ans = "";
     for (auto num : nums) {

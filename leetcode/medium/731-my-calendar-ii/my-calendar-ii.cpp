@@ -9,7 +9,7 @@ class MyCalendarTwo {
     event[endTime] -= 1;
     int b = 0;
     int maxb = 0;
-    for (auto &e : event) {
+    for (auto& e : event) {
       b += e.second;
       if (b > maxb) {
         maxb = b;

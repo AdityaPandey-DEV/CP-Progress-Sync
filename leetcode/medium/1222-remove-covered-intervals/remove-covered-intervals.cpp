@@ -1,9 +1,9 @@
 class Solution {
  public:
-  int removeCoveredIntervals(vector<vector<int>> &intervals) {
+  int removeCoveredIntervals(vector<vector<int>>& intervals) {
     vector<vector<int>> ans;
     int n = intervals.size();
-    sort(intervals.begin(), intervals.end(), [](auto &a, auto &b) {
+    sort(intervals.begin(), intervals.end(), [](auto& a, auto& b) {
       return (a[0] == b[0]) ? a[1] > b[1] : a[0] < b[0];
     });
     ans.push_back(intervals[0]);

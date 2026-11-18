@@ -1,5 +1,5 @@
 class Solution {
-  void rec(string &s, vector<string> &r, int n) {
+  void rec(string& s, vector<string>& r, int n) {
     if (s.size() == n) {
       r.push_back(s);
       return;

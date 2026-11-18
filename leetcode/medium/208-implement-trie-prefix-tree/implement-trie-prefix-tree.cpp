@@ -1,7 +1,7 @@
 class Trie {
  public:
   bool isEndOfWord;
-  Trie *child[26];
+  Trie* child[26];
   Trie() {
     isEndOfWord = false;
     for (int i = 0; i < 26; i++) {
@@ -10,7 +10,7 @@ class Trie {
   }
 
   void insert(string word) {
-    Trie *crawl = this;
+    Trie* crawl = this;
     for (auto ch : word) {
       int idx = ch - 'a';
       if (crawl->child[idx] == NULL) {
@@ -22,7 +22,7 @@ class Trie {
   }
 
   bool search(string word) {
-    Trie *crawl = this;
+    Trie* crawl = this;
     for (auto ch : word) {
       int idx = ch - 'a';
       if (crawl->child[idx] == NULL) {
@@ -34,7 +34,7 @@ class Trie {
   }
 
   bool startsWith(string prefix) {
-    Trie *crawl = this;
+    Trie* crawl = this;
     for (auto ch : prefix) {
       int idx = ch - 'a';
       if (crawl->child[idx] == NULL) {

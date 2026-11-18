@@ -1,6 +1,6 @@
 class Solution {
  public:
-  bool solve(int i, int j, string &s, string &p) {
+  bool solve(int i, int j, string& s, string& p) {
     if (j == p.size()) return i == s.size();
 
     bool firstMatch = (i < s.size() && (s[i] == p[j] || p[j] == '.'));

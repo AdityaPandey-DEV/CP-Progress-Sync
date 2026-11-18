@@ -8,7 +8,7 @@ class Solution {
       return false;
     }
   }
-  void solve(int idx, string &s, vector<string> path) {
+  void solve(int idx, string& s, vector<string> path) {
     if (idx == s.size()) {
       ans.push_back(path);
     }

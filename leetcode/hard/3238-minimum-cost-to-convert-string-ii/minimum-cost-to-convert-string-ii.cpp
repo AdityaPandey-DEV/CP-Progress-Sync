@@ -21,18 +21,18 @@ class Solution {
 
     // Option 2: try all substring replacements
 
-    for (auto &p1 : mp) {
+    for (auto& p1 : mp) {
       // check for valid source substring s1
-      const string &s1 = p1.first;
+      const string& s1 = p1.first;
       int u = p1.second;
       int len = s1.size();
 
       if (i + len > n) continue;
       if (src.compare(i, len, s1) != 0) continue;
 
-      for (auto &p2 : mp) {
+      for (auto& p2 : mp) {
         // find a valid target substring s2
-        const string &s2 = p2.first;
+        const string& s2 = p2.first;
         int v = p2.second;
 
         if (tgt.compare(i, len, s2) != 0) continue;
@@ -45,8 +45,8 @@ class Solution {
     return dp[i] = ans;
   }
 
-  long long minimumCost(string source, string target, vector<string> &original,
-                        vector<string> &changed, vector<int> &cost) {
+  long long minimumCost(string source, string target, vector<string>& original,
+                        vector<string>& changed, vector<int>& cost) {
     src = source;
     tgt = target;
     n = source.size();

@@ -9,7 +9,7 @@ class LFUCache {
   LFUCache(int capacity) { this->capacity = capacity; }
 
   void makeFreqUsed(int key) {
-    auto &vc = (*(mp[key]));
+    auto& vc = (*(mp[key]));
     int val = vc[1];
     int f = vc[2];
     freq[f].erase(mp[key]);
@@ -34,7 +34,7 @@ class LFUCache {
   void put(int key, int value) {
     if (capacity == 0) return;
     if (mp.find(key) != mp.end()) {
-      auto &vc = *mp[key];
+      auto& vc = *mp[key];
       vc[1] = value;
       makeFreqUsed(key);
     } else if (size < capacity) {
@@ -43,7 +43,7 @@ class LFUCache {
       mp[key] = freq[1].begin();
 
     } else {
-      auto &list = freq.begin()->second;
+      auto& list = freq.begin()->second;
       int key_to_delete = (list.back())[0];
       list.pop_back();
       if (list.empty()) {

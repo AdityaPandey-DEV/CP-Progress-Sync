@@ -1,6 +1,6 @@
 class Solution {
  public:
-  double rec(int i, int j, vector<vector<double>> &dp) {
+  double rec(int i, int j, vector<vector<double>>& dp) {
     if (j < 0 || j > i) {
       return 0.0;
     }

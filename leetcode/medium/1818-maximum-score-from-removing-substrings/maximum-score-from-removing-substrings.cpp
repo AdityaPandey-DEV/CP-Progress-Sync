@@ -1,5 +1,5 @@
 class Solution {
-  int remove(string &s, char start, char end, int score) {
+  int remove(string& s, char start, char end, int score) {
     string st;
     int ans = 0;
     for (auto ch : s) {

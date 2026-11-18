@@ -3,7 +3,7 @@ class Solution {
   int maxLen = 0;
   string s;
   int n;
-  void getStr(int i, int &cost, string &ans) {
+  void getStr(int i, int& cost, string& ans) {
     // cout<<i<<" "<<cost<<" "<<ans<<endl;
     if (i == n && cost == 0) {
       int size = ans.size();

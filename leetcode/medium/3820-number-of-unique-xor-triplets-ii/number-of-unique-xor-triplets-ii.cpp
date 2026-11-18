@@ -1,6 +1,6 @@
 class Solution {
  public:
-  int uniqueXorTriplets(vector<int> &nums) {
+  int uniqueXorTriplets(vector<int>& nums) {
     int n = nums.size();
     int maxe = *max_element(begin(nums), end(nums));
     int limit = 1;
@@ -14,7 +14,7 @@ class Solution {
     vector<bool> two(limit, false);
     for (int i = 0; i < limit; i++) {
       if (one[i]) {
-        for (int &num : nums) {
+        for (int& num : nums) {
           two[i ^ num] = true;
         }
       }
@@ -22,7 +22,7 @@ class Solution {
     vector<bool> three(limit, false);
     for (int i = 0; i < limit; i++) {
       if (two[i]) {
-        for (int &num : nums) {
+        for (int& num : nums) {
           three[i ^ num] = true;
         }
       }

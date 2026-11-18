@@ -32,11 +32,11 @@ class DSU {
 
 class Solution {
  public:
-  bool canAchieve(int n, vector<vector<int>> &edges, int k, int x) {
+  bool canAchieve(int n, vector<vector<int>>& edges, int k, int x) {
     DSU dsu(n);
 
     // 1. Mandatory edges must be included
-    for (auto &e : edges) {
+    for (auto& e : edges) {
       int u = e[0], v = e[1], s = e[2], must = e[3];
 
       if (must == 1) {
@@ -46,7 +46,7 @@ class Solution {
     }
 
     // 2. Use all free optional edges
-    for (auto &e : edges) {
+    for (auto& e : edges) {
       int u = e[0], v = e[1], s = e[2], must = e[3];
 
       if (must == 0 && s >= x) {
@@ -57,7 +57,7 @@ class Solution {
     // 3. Use upgradeable optional edges if needed
     int usedUpgrades = 0;
 
-    for (auto &e : edges) {
+    for (auto& e : edges) {
       int u = e[0], v = e[1], s = e[2], must = e[3];
 
       if (must == 0 && s < x && 2 * s >= x) {
@@ -71,11 +71,11 @@ class Solution {
     return dsu.components == 1;
   }
 
-  int maxStability(int n, vector<vector<int>> &edges, int k) {
+  int maxStability(int n, vector<vector<int>>& edges, int k) {
     // Early check: mandatory edges alone must not form a cycle
     {
       DSU dsu(n);
-      for (auto &e : edges) {
+      for (auto& e : edges) {
         if (e[3] == 1) {
           if (!dsu.unite(e[0], e[1])) return -1;
         }

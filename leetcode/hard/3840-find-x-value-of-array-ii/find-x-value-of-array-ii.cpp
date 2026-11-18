@@ -20,14 +20,14 @@ class Tree {
   }
 
  public:
-  Tree(vector<int> &nums, int k) {
+  Tree(vector<int>& nums, int k) {
     this->nums = nums;
     this->k = k;
     n = nums.size();
     segTree.assign(4 * n, Node());
     build(0, 0, n - 1);
   }
-  Node merge(Node &a, Node &b) {
+  Node merge(Node& a, Node& b) {
     Node ans;
     ans.prod = (a.prod * b.prod) % k;
     for (int i = 0; i < 5; i++) {
@@ -72,14 +72,14 @@ class Tree {
 };
 class Solution {
  public:
-  vector<int> resultArray(vector<int> &nums, int k,
-                          vector<vector<int>> &queries) {
+  vector<int> resultArray(vector<int>& nums, int k,
+                          vector<vector<int>>& queries) {
     int m = queries.size();
     int n = nums.size();
     vector<int> ans(m, 0);
     int j = 0;
     Tree t(nums, k);
-    for (auto &q : queries) {
+    for (auto& q : queries) {
       int index = q[0];
       int val = q[1];
       int start = q[2];

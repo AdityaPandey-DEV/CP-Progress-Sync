@@ -5,11 +5,11 @@ class Solution {
   map<char, int> mp;
   char mid;
   bool isOk(string s) {
-    for (auto &ch : s) {
+    for (auto& ch : s) {
       mp[ch]++;
     }
     int cnt = 0;
-    for (auto &p : mp) {
+    for (auto& p : mp) {
       if (p.second % 2 != 0) {
         ans[n / 2] = p.first;
         mp[p.first]--;
@@ -40,7 +40,7 @@ class Solution {
       mp[ch] += 2;
     }
     char c = target[i];
-    for (auto &p : mp) {
+    for (auto& p : mp) {
       if ((!greater && p.first <= c) || (mp[p.first] < 2)) continue;
       mp[p.first] -= 2;
       ans[i] = p.first;
